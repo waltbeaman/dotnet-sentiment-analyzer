@@ -14,6 +14,18 @@
 
             Console.WriteLine($"The sentiment of your sentence is: {result.PredictedLabel}");
 
+            Console.Write("Positive: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(result.Score[0].ToString("p"));
+            Console.ResetColor();
+            
+            Console.WriteLine();
+
+            Console.Write("Negative: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(result.Score[1].ToString("p"));
+            Console.ResetColor();
+
         }
     }
 }
