@@ -8,10 +8,12 @@ namespace SentimentAnalyzerApi.Controllers
     [ApiController]
     public class SentimentAnalyzerController : ControllerBase
     {
-        [HttpPost("analyze")]
-        public ActionResult Analyze([FromBody] SentimentAnalysisModel.ModelInput text)
+        [HttpPost("/")]
+        public ActionResult Analyze([FromBody] string text)
         {
-            var prediction = SentimentAnalysisModel.Predict(text);
+            var inputText = new SentimentAnalysisModel.ModelInput();
+            inputText.Review = text;
+            var prediction = SentimentAnalysisModel.Predict(inputText);
             return Ok(prediction.PredictedLabel);
         }
     }
