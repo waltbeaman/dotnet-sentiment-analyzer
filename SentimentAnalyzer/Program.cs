@@ -5,13 +5,14 @@
         static void Main(string[] args)
         {
             Console.Write("Enter a sentence to evaluate: ");
-            //Load sample data
+            // Get sentence from user
             var sampleData = new SentimentAnalysisModel.ModelInput();
             sampleData.Review = Console.ReadLine();
 
-            //Load model and predict output
+            // Load model and analyze sentiment
             var result = SentimentAnalysisModel.Predict(sampleData);
 
+            // Display results to user           
             Console.WriteLine($"The sentiment of your sentence is: {result.PredictedLabel}");
 
             Console.Write("Positive: ");
