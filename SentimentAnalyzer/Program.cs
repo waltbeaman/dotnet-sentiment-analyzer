@@ -1,32 +1,36 @@
-﻿namespace SentimentAnalyzer
+
+namespace SentimentAnalyzer
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.Write("Enter a sentence to evaluate: ");
-            // Get sentence from user
-            var sampleData = new SentimentAnalysisModel.ModelInput();
-            sampleData.Review = Console.ReadLine();
+            var builder = WebApplication.CreateBuilder(args);
 
-            // Load model and analyze sentiment
-            var result = SentimentAnalysisModel.Predict(sampleData);
+            // Add services to the container.
 
-            // Display results to user           
-            Console.WriteLine($"The sentiment of your sentence is: {result.PredictedLabel}");
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-            Console.Write("Positive: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(result.Score[0].ToString("p"));
-            Console.ResetColor();
-            
-            Console.WriteLine();
+            var app = builder.Build();
 
-            Console.Write("Negative: ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(result.Score[1].ToString("p"));
-            Console.ResetColor();
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
         }
     }
 }
